@@ -25,9 +25,9 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Test Flask application
+      - name: Run automated tests
         run: |
-          python -c "from app import app; print('Flask application loaded successfully')"
+          pytest -v
 
       - name: Build Docker image
         run: |
