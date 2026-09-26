@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveHub - Car Dealership</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 25px 8%;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #d1d5db;
+        }
+
+        .container {
+            width: 84%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-box form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background: #1d4ed8;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 10px;
+            padding: 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .car-card h2 {
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .car-info {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .price {
+            margin-top: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        .api-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: #111827;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .api-section code {
+            display: block;
+            margin-top: 10px;
+            color: #93c5fd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background: #111827;
+            color: #d1d5db;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🚗 DriveHub</h1>
+    <p>Car Dealership Management System</p>
+</header>
+
+<div class="container">
+
+    <div class="search-box">
+        <form action="/search" method="get">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search by brand or model..."
+                value="{{ search_query|default('') }}"
+            >
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <h2 style="margin-bottom: 20px;">Available Cars</h2>
+
+    <div class="cars-grid">
+
+        {% for car in cars %}
+
+        <div class="car-card">
+
+            <h2>{{ car.brand }} {{ car.model }}</h2>
+
+            <p class="car-info">
+                <strong>Year:</strong> {{ car.year }}
+            </p>
+
+            <p class="car-info">
+                <strong>Fuel:</strong> {{ car.fuel }}
+            </p>
+
+            <p class="car-info">
+                <strong>Transmission:</strong> {{ car.transmission }}
+            </p>
+
+            <p class="price">
+                ₹{{ "{:,}".format(car.price) }}
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="api-section">
+        <h2>Developer API</h2>
+
+        <p>Available API endpoints:</p>
+
+        <code>GET /api/cars</code>
+        <code>GET /api/cars/1</code>
+        <code>GET /health</code>
+    </div>
+
+</div>
+
+<footer>
+    <p>DriveHub Car Dealership &copy; 2026</p>
+    <p>Powered by Flask + Docker + Jenkins</p>
+</footer>
+
+</body>
+</html>
